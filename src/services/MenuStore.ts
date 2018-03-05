@@ -1,6 +1,7 @@
 import { action, computed, observable } from 'mobx';
 import { querySelector } from '../utils/dom';
-import { GroupModel, OperationModel, SpecStore } from './models';
+import { GroupModel, OperationModel } from './models';
+import { SpecStore } from './SpecStore';
 
 import { HistoryService } from './HistoryService';
 import { ScrollService } from './ScrollService';

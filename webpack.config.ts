@@ -1,5 +1,6 @@
 import * as webpack from 'webpack';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
+import * as path from 'path';
 
 const nodeExternals = require('webpack-node-externals')({
   // bundle in moudules that need transpiling + non-js (e.g. css)
@@ -28,8 +29,6 @@ export default env => {
       : [
           // playground
           './src/polyfills.ts',
-          'react-dev-utils/webpackHotDevClient',
-          'react-hot-loader/patch',
           './demo/playground/hmr-playground.tsx',
         ];
   }
@@ -39,6 +38,7 @@ export default env => {
     output: {
       filename: env.standalone ? 'redoc.standalone.js' : 'redoc.lib.js',
       path: __dirname + (env.lib ? '/bundles' : 'lib'),
+      globalObject: 'this',
     },
 
     devServer: {
@@ -76,16 +76,27 @@ export default env => {
                 fallback: false,
               },
             },
+            {
+              loader: 'ts-loader',
+              options: {
+                compilerOptions: {
+                  module: env.perf ? 'esnext' : 'es2015',
+                },
+                instance: 'worker',
+              },
+            },
           ],
         },
         {
-          test: /\.tsx?$/,
+          test: /^(?!.*\.worker).*\.tsx?$/,
           use: [
-            'react-hot-loader/webpack',
+            'babel-loader',
             {
-              loader: 'awesome-typescript-loader',
+              loader: 'ts-loader',
               options: {
-                module: env.perf ? 'esnext' : 'es2015',
+                compilerOptions: {
+                  module: env.perf ? 'esnext' : 'commonjs',
+                },
               },
             },
           ],
@@ -94,10 +105,13 @@ export default env => {
         {
           test: /node_modules\/(swagger2openapi|reftools)\/.*\.js$/,
           use: {
-            loader: 'awesome-typescript-loader',
+            loader: 'ts-loader',
             options: {
+              compilerOptions: {
+                allowJs: true,
+              },
               transpileOnly: true,
-              allowJs: true,
+              configFile: path.join(__dirname, 'tsconfig.json'),
               instance: 'ts2js-transpiler-only',
             },
           },
@@ -117,7 +131,6 @@ export default env => {
     },
     plugins: [
       new webpack.DefinePlugin({
-        'process.env.NODE_ENV': env.prod ? '"production"' : '"development"',
         __REDOC_VERSION__: VERSION,
         __REDOC_REVISION__: REVISION,
         __DEV__: env.prod ? 'false' : 'true',
@@ -125,10 +138,6 @@ export default env => {
       new webpack.NamedModulesPlugin(),
     ],
   };
-
-  if (env.prod) {
-    config.plugins!.push(new webpack.optimize.ModuleConcatenationPlugin());
-  }
 
   if (env.lib) {
     config.output!.library = 'Redoc';

@@ -1,0 +1,6 @@
+{
+  "presets": ["env", "react"],
+  "plugins": [["transform-es2015-modules-commonjs", {
+    "noInterop": true
+  }], "react-hot-loader/babel", "transform-class-properties"]
+}

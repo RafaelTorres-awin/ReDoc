@@ -1,7 +1,7 @@
 import { OpenAPISpec } from '../types';
 import { loadAndBundleSpec } from '../utils/loadAndBundleSpec';
 import { MenuStore } from './MenuStore';
-import { SpecStore } from './models';
+import { SpecStore } from './SpecStore';
 import { RedocNormalizedOptions, RedocRawOptions } from './RedocNormalizedOptions';
 import { ScrollService } from './ScrollService';
 import { SearchStore } from './SearchStore';

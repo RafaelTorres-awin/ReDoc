@@ -1,9 +1,9 @@
 import { SpecStore } from '../index';
 import { GroupModel, OperationModel } from './models';
-import worker from './SearchWorker.worker';
+import * as worker from './SearchWorker.worker';
 
 export class SearchStore {
-  searchWorker = new worker();
+  searchWorker = new (worker as any)();
 
   constructor(private spec: SpecStore) {
     this.indexGroups(this.spec.operationGroups);

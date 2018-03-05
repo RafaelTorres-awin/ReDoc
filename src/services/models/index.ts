@@ -1,4 +1,3 @@
-export * from '../SpecStore';
 export * from './Group.model';
 export * from './Operation';
 export * from './RequestBody';

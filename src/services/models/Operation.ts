@@ -57,8 +57,8 @@ export class OperationModel implements IMenuItem {
     options: RedocNormalizedOptions,
   ) {
     this.id = operationSpec._$ref;
-    this.name = getOperationSummary(operationSpec);
-    this.description = operationSpec.description;
+    this.name = getOperationSummary(operationSpec) + ' +=+';
+    this.description = operationSpec.description + '---- test ---';
 
     this.parent = parent;
     this.externalDocs = operationSpec.externalDocs;

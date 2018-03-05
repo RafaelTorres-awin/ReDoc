@@ -2,7 +2,9 @@
   "compilerOptions": {
     "experimentalDecorators": true,
     "moduleResolution": "node",
-    "target": "es5",
+    "target": "es6",
+    // "module": "commonjs",
+    // "allowSyntheticDefaultImports": true,
     "noImplicitAny": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
