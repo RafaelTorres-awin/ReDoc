@@ -1,0 +1,130 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Api Documentation",
+    "version": "1.0",
+    "title": "Api Documentation",
+    "termsOfService": "urn:tos",
+    "contact": {},
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "l-lhr1-docker-198.zanox-live.de:8080",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "publisher-tag-controller",
+      "description": "Publisher Tag Controller"
+    }
+  ],
+  "paths": {
+    "/publisher-tags/for-advertiser/{advertiserId}": {
+      "get": {
+        "tags": [
+          "publisher-tag-controller"
+        ],
+        "summary": "publisherTag",
+        "operationId": "publisherTagUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "advertiserId",
+            "in": "path",
+            "description": "Id of advertiser, for which tags are fetched",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/TagApiEntity"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/publisher-tags/for-advertisers/{advertisersIds}": {
+      "get": {
+        "tags": [
+          "publisher-tag-controller"
+        ],
+        "summary": "Find tags for multiple advertisers",
+        "operationId": "listOfTagsByAdvertiserIdsUsingGET",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "advertisersIds",
+            "in": "path",
+            "description": "List of advertisers ids for which tags are fetched",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/TagApiEntity"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "TagApiEntity": {
+      "type": "object",
+      "properties": {
+        "advertiserId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        },
+        "publisherId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "tagId": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "TagApiEntity"
+    }
+  }
+}

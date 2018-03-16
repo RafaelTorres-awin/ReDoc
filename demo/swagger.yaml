@@ -35,13 +35,13 @@ info:
     and standard method from web, mobile and desktop applications.
     <!-- ReDoc-Inject: <security-definitions> -->
   version: 1.0.0
-  title: Swagger Petstore
+  title: Awin - Publisher API
   termsOfService: 'http://swagger.io/terms/'
   contact:
     email: apiteam@swagger.io
     url: https://github.com/Rebilly/ReDoc
   x-logo:
-    url: 'https://rebilly.github.io/ReDoc/petstore-logo.png'
+    url: 'awin-logo.png'
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'

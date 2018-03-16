@@ -1,0 +1,174 @@
+{
+  "swagger": "2.0",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "host": "",
+  "basePath": "/v2",
+  "info": {
+    "description": "This is a sample server Petstore server.\nYou can find out more about Swagger at\n[http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).\nFor this sample, you can use the api key `special-key` to test the authorization filters.\n# Introduction\nThis API is documented in **OpenAPI format** and is based on\n[Petstore sample](http://petstore.swagger.io/) provided by [swagger.io](http://swagger.io) team.\nIt was **extended** to illustrate features of [generator-openapi-repo](https://github.com/Rebilly/generator-openapi-repo)\ntool and [ReDoc](https://github.com/Rebilly/ReDoc) documentation. In addition to standard\nOpenAPI syntax we use a few [vendor extensions](https://github.com/Rebilly/ReDoc/blob/master/docs/redoc-vendor-extensions.md).\n# OpenAPI Specification\nThis API is documented in **OpenAPI format** and is based on\n[Petstore sample](http://petstore.swagger.io/) provided by [swagger.io](http://swagger.io) team.\nIt was **extended** to illustrate features of [generator-openapi-repo](https://github.com/Rebilly/generator-openapi-repo)\ntool and [ReDoc](https://github.com/Rebilly/ReDoc) documentation. In addition to standard\nOpenAPI syntax we use a few [vendor extensions](https://github.com/Rebilly/ReDoc/blob/master/docs/redoc-vendor-extensions.md).\n# Cross-Origin Resource Sharing\nThis API features Cross-Origin Resource Sharing (CORS) implemented in compliance with  [W3C spec](https://www.w3.org/TR/cors/).\nAnd that allows cross-domain communication from the browser.\nAll responses have a wildcard same-origin which makes them completely public and accessible to everyone, including any code on any site.\n# Authentication\nPetstore offers two forms of authentication:\n  - API Key\n  - OAuth2\n\nOAuth2 - an open protocol to allow secure authorization in a simple\nand standard method from web, mobile and desktop applications.\n<!-- ReDoc-Inject: <security-definitions> -->\n",
+    "version": "1.0.0",
+    "title": "Awin - Publisher API",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "apiteam@swagger.io",
+      "url": "https://github.com/Rebilly/ReDoc"
+    },
+    "x-logo": {
+      "url": "awin-logo.png"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "externalDocs": {
+    "description": "Find out how to create Github repo for your OpenAPI spec.",
+    "url": "https://github.com/Rebilly/generator-openapi-repo"
+  },
+  "tags": [
+    {
+      "name": "publishers",
+      "description": "Publisher Tag Controller"
+    }
+  ],
+  "x-tagGroups": [
+    {
+      "name": "General",
+      "tags": [
+        "publishers"
+      ]
+    }
+  ],
+  "securityDefinitions": {
+    "api_key": {
+      "description": "For this sample, you can use the api key `special-key` to test the authorization filters.\n",
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
+  "x-servers": [
+    {
+      "url": "//s-lhr1-docker-045:8080",
+      "description": "Staging"
+    },
+    {
+      "url": "//q-lhr1-docker-025.zanox-live.de:8080",
+      "description": "Quality"
+    },
+    {
+      "url": "//l-lhr1-docker-198.zanox-live.de:8080",
+      "description": "Live"
+    }
+  ],
+  "paths": {
+    "/publisher-tags/for-advertiser/{advertiserId}": {
+      "get": {
+        "tags": [
+          "publishers"
+        ],
+        "summary": "Publishers tags",
+        "operationId": "publisherTagUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "advertiserId",
+            "in": "path",
+            "description": "Id of advertiser, for which tags are fetched",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/TagApiEntity"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Tags not found for publisher"
+          }
+        }
+      }
+    },
+    "/publisher-tags/for-advertisers/{advertisersIds}": {
+      "get": {
+        "tags": [
+          "publishers"
+        ],
+        "summary": "Find tags for multiple advertisers",
+        "operationId": "listOfTagsByAdvertiserIdsUsingGET",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "advertisersIds",
+            "in": "path",
+            "description": "List of advertisers ids for which tags are fetched",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/TagApiEntity"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "TagApiEntity": {
+      "type": "object",
+      "properties": {
+        "advertiserId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        },
+        "publisherId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "tagId": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "TagApiEntity"
+    }
+  }
+}
